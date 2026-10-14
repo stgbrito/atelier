@@ -27,7 +27,15 @@
       padding: 0;
     }
 
-    html, body {
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    body {
       overflow-x: hidden;
       width: 100%;
       max-width: 100%;
@@ -792,6 +800,185 @@
       border: 1px solid #3E352F;
     }
 
+    /* Header Scroll Effect & Active Nav Link */
+    header {
+      transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 11px 5%;
+      box-shadow: 0 8px 28px rgba(30, 25, 22, 0.08);
+      background: rgba(250, 247, 242, 0.98);
+    }
+
+    nav a.nav-link {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    nav a.nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent-terracotta);
+      transition: width 0.28s ease;
+    }
+
+    nav a.nav-link:hover::after,
+    nav a.nav-link.active-section::after {
+      width: 100%;
+    }
+
+    nav a.nav-link.active-section {
+      color: var(--accent-terracotta);
+      font-weight: 600;
+    }
+
+    /* Mobile Menu Toggle Button */
+    .mobile-menu-btn {
+      display: none;
+      background: var(--bg-sand);
+      border: 1px solid var(--border-soft);
+      color: var(--text-espresso);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Scroll Reveal Animations */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Portfolio Card Filter Entrance Animation */
+    @keyframes cardFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .portfolio-card {
+      animation: cardFadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .card-media {
+      cursor: zoom-in;
+    }
+
+    .card-media img {
+      transition: transform 0.45s ease;
+    }
+
+    .portfolio-card:hover .card-media img {
+      transform: scale(1.04);
+    }
+
+    .zoom-hint {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(30, 25, 22, 0.75);
+      color: #FAF7F2;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    /* Lightbox Modal for High-Res Dress Inspection */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(20, 16, 14, 0.88);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox-modal.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-box {
+      background: var(--bg-ivory);
+      border-radius: var(--radius-lg);
+      max-width: 880px;
+      width: 100%;
+      max-height: 92vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    .lightbox-media {
+      background: #161210;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 92vh;
+      overflow: hidden;
+    }
+
+    .lightbox-media img {
+      width: 100%;
+      height: 100%;
+      max-height: 86vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-info {
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(30, 25, 22, 0.85);
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+
     @media (max-width: 860px) {
       .hero, .booking-box, .careers-grid, .service-modes-grid, .pillars-grid {
         grid-template-columns: 1fr;
@@ -841,6 +1028,36 @@
         max-width: 100%;
         white-space: nowrap;
       }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+      header nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border-soft);
+      }
+      header nav.nav-open {
+        display: flex;
+      }
+      .header-cta-group {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .lightbox-box {
+        grid-template-columns: 1fr;
+        max-height: 92vh;
+        overflow-y: auto;
+      }
+      .lightbox-media img {
+        max-height: 52vh;
+      }
+      .lightbox-info {
+        padding: 20px 18px;
+      }
       body {
         padding-bottom: 96px;
       }
@@ -859,7 +1076,10 @@
       <span class="title">Juana de Jesús • Atelier</span>
       <span class="subtitle sans">Alta Costura Femenina, Sastrería Ejecutiva &amp; Ceremonias</span>
     </a>
-    <nav class="sans">
+    <button class="mobile-menu-btn sans" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Abrir menú">
+      ☰ Menú
+    </button>
+    <nav class="sans" id="mainNav">
       <a href="#lineas" class="nav-link">Especialidades</a>
       <a href="#coleccion" class="nav-link">Portafolio</a>
       <a href="#modalidades" class="nav-link">Estudio y Domicilio</a>
@@ -1095,7 +1315,7 @@
 
         <div class="form-group">
           <label>Tipo de Confección Femenina de Interés *</label>
-          <select id="clientService" required>
+          <select id="clientService" required onchange="handleServiceChange()">
             <option value="Vestido de Graduación / Investidura / Ceremonia">Vestido de Graduación / Investidura / Ceremonia</option>
             <option value="Uniforme Ejecutivo Individual / Traje Sastre (Abogada, Maestra, Ejecutiva)">Uniforme Ejecutivo Individual / Traje Sastre (Abogada, Maestra, Ejecutiva)</option>
             <option value="Traje o Vestido para Líder de Iglesia / Ministerio">Traje o Vestido para Líder de Iglesia / Ministerio</option>
@@ -1211,6 +1431,32 @@
     <a href="https://wa.me/18097944253?text=Hola%20Juana%20de%20Jes%C3%BAs%20%E2%80%A2%20Atelier%2C%20deseo%20informaci%C3%B3n%20sobre%20una%20confecci%C3%B3n%20a%20medida." target="_blank" class="floating-wa">
       💬 WhatsApp (809) 794-4253
     </a>
+  </div>
+
+  <!-- LIGHTBOX MODAL FOR FULL-SCREEN PHOTO VIEW -->
+  <div class="lightbox-modal sans" id="lightboxModal" onclick="if(event.target===this)closeLightbox()">
+    <div class="lightbox-box">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar">✕</button>
+      <div class="lightbox-media">
+        <img id="lightboxImg" src="" alt="" referrerpolicy="no-referrer" />
+      </div>
+      <div class="lightbox-info">
+        <div>
+          <span class="hero-badge" id="lightboxCategory" style="margin-bottom:10px;">Alta Costura</span>
+          <h3 id="lightboxTitle" style="font-family:'Georgia',serif; font-size:1.5rem; font-weight:normal; margin-bottom:10px;"></h3>
+          <p id="lightboxDesc" style="color:var(--text-muted); font-size:0.92rem; margin-bottom:16px;"></p>
+          <div id="lightboxMeta" style="font-size:0.82rem; color:var(--accent-terracotta); padding-top:12px; border-top:1px dashed var(--border-soft); margin-bottom:20px;"></div>
+        </div>
+        <div style="display:grid; gap:10px;">
+          <button class="btn btn-whatsapp" id="lightboxWaBtn" style="width:100%; padding:13px;">
+            💬 Consultar este diseño por WhatsApp
+          </button>
+          <button class="btn btn-outline" onclick="closeLightbox()" style="width:100%;">
+            Seguir viendo el portafolio
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ENGINEER MODAL: GOOGLE SHEETS / DRIVE AUTO-SYNC SETUP -->
@@ -1582,12 +1828,14 @@
         ? portfolioItems
         : portfolioItems.filter(item => item.category === currentFilter);
 
-      filtered.forEach(item => {
+      filtered.forEach((item, idx) => {
         const card = document.createElement("div");
         card.className = "portfolio-card";
+        card.style.animationDelay = `${Math.min(idx * 55, 350)}ms`;
         card.innerHTML = `
-          <div class="card-media">
+          <div class="card-media" onclick="openLightbox(${item.id})">
             <span class="card-tag sans">${item.categoryLabel}</span>
+            <span class="zoom-hint sans">🔍 Ampliar</span>
             <img src="${item.image}" alt="${item.title}" loading="lazy" referrerpolicy="no-referrer" data-fid="${item.driveId || ""}" onerror="if(this.dataset.fid && !this.dataset.fb){this.dataset.fb=1;this.src='https://lh3.googleusercontent.com/d/'+this.dataset.fid+'=w1000';}" />
           </div>
           <div class="card-body">
@@ -1706,7 +1954,139 @@
       const url = document.getElementById("sheetCsvUrlInput").value.trim();
       localStorage.setItem("atelier_sheet_csv_url", url);
       closeCmsModal();
-      loadGoogleSheetCatalog();
+      function toggleMobileMenu() {
+      const nav = document.getElementById("mainNav");
+      const btn = document.getElementById("mobileMenuBtn");
+      nav.classList.toggle("nav-open");
+      btn.textContent = nav.classList.contains("nav-open") ? "✕ Cerrar" : "☰ Menú";
+    }
+
+    function openLightbox(itemId) {
+      const item = portfolioItems.find(i => i.id === itemId);
+      if (!item) return;
+      document.getElementById("lightboxImg").src = item.image;
+      document.getElementById("lightboxImg").alt = item.title;
+      document.getElementById("lightboxCategory").textContent = item.categoryLabel;
+      document.getElementById("lightboxTitle").textContent = item.title;
+      document.getElementById("lightboxDesc").textContent = item.desc;
+      document.getElementById("lightboxMeta").textContent = item.meta;
+      document.getElementById("lightboxWaBtn").onclick = function() {
+        inquireItemWhatsApp(item.title, item.categoryLabel);
+      };
+      document.getElementById("lightboxModal").classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightboxModal").classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    function handleServiceChange() {
+      const val = document.getElementById("clientService").value;
+      const notes = document.getElementById("clientNotes");
+      const label = notes.previousElementSibling;
+      if (val.startsWith("Otros")) {
+        notes.required = true;
+        notes.placeholder = "Por favor descríbenos qué tipo de prenda femenina deseas confeccionar...";
+        if (label) label.textContent = "Detalles de tu Idea * (Requerido para 'Otros')";
+        notes.focus();
+      } else {
+        notes.required = false;
+        notes.placeholder = "Cuéntanos cantidad de piezas, colores, profesión o tipo de ceremonia...";
+        if (label) label.textContent = "Detalles de tu Idea (Opcional)";
+      }
+    }
+
+    function initInteractiveUX() {
+      // 1. Smooth Scroll with Sticky Header Offset for all anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+          const targetId = this.getAttribute("href");
+          if (!targetId || targetId === "#") {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            // Close mobile menu if open
+            const nav = document.getElementById("mainNav");
+            const btn = document.getElementById("mobileMenuBtn");
+            if (nav && nav.classList.contains("nav-open")) {
+              nav.classList.remove("nav-open");
+              if (btn) btn.textContent = "☰ Menú";
+            }
+            const headerOffset = document.querySelector("header").offsetHeight + 12;
+            const elementPosition = targetEl.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
+
+      // 2. Header Scroll Elevation & Active Section Scroll-Spy
+      const headerEl = document.querySelector("header");
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll("nav a.nav-link");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 30) {
+          headerEl.classList.add("scrolled");
+        } else {
+          headerEl.classList.remove("scrolled");
+        }
+
+        let currentSectionId = "";
+        const scrollPos = window.scrollY + 160;
+        sections.forEach(sec => {
+          if (scrollPos >= sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {
+            currentSectionId = sec.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.toggle("active-section", link.getAttribute("href") === `#${currentSectionId}`);
+        });
+      }, { passive: true });
+
+      // 3. Scroll-Reveal Observer for Sections and Cards
+      const revealTargets = document.querySelectorAll(".pillar-card, .mode-card, .step-card, .booking-box, .careers-section, .section-header");
+      revealTargets.forEach((el, idx) => {
+        el.classList.add("reveal-on-scroll");
+        el.style.transitionDelay = `${(idx % 3) * 80}ms`;
+      });
+
+      if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -30px 0px" });
+
+        revealTargets.forEach(el => revealObserver.observe(el));
+      } else {
+        revealTargets.forEach(el => el.classList.add("is-visible"));
+      }
+
+      // 4. Close modals on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeLightbox();
+          closeCmsModal();
+        }
+      });
+    }
+
+    initInteractiveUX();
+    loadGoogleSheetCatalog();
     }
 
     loadGoogleSheetCatalog();
