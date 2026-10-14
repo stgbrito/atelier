@@ -1,0 +1,50 @@
+name: Sincronizar Web desde Google Drive
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-from-drive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Descargar último index.html desde la carpeta de Google Drive
+        run: |
+          python3 - << 'EOF'
+          import re, urllib.request
+
+          folder_url = "https://drive.google.com/embeddedfolderview?id=1KX1TfifKJDqgaARqEfp6UciYcNYwygtb#list"
+          html = urllib.request.urlopen(folder_url).read().decode("utf-8", errors="ignore")
+
+          # Busca el archivo llamado exactamente index.html dentro de la carpeta
+          matches = re.findall(r'id="entry-([a-zA-Z0-9_-]+)".*?class="flip-entry-title">([^<]+)</div>', html, re.S)
+          file_id = "1tsMJ2VlCSX_-TKbXjzFd0zRbGN4_ik3n"
+          for fid, title in matches:
+              if title.strip() == "index.html":
+                  file_id = fid
+                  break
+
+          print(f"Descargando index.html desde Drive ID: {file_id}")
+          dl_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+          content = urllib.request.urlopen(dl_url).read()
+          if len(content) > 1000 and b"<!DOCTYPE html>" in content[:500]:
+              with open("index.html", "wb") as f:
+                  f.write(content)
+              print(f"index.html actualizado ({len(content)} bytes)")
+          else:
+              raise RuntimeError("El archivo descargado no es un HTML válido")
+          EOF
+
+      - name: Publicar cambios en el repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --staged --quiet || (git commit -m "Auto-sync index.html desde Google Drive" && git push)
