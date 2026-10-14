@@ -1142,7 +1142,7 @@
         <button onclick="closeCmsModal()" style="background:none; border:none; font-size:1.3rem; cursor:pointer;">✕</button>
       </div>
       <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
-        Esta página está conectada al Google Sheet <strong>Catálogo Web — Juana de Jesús • Atelier (Moda Femenina)</strong> (ID: <code>1Sh4pLxgeu8_fhWzOBY6FSZVMOmWHk6ehTfw3rSv2qyY</code>). Solo asegúrate de compartir esa hoja como <em>"Cualquier persona con el enlace: Lector"</em>.
+        Esta página está conectada al Google Sheet <strong>Catálogo Web — Juana de Jesús • Atelier (Moda Femenina)</strong> (ID: <code>1Sh4pLxgeu8_fhWzOBY6FSZVMOmWHk6ehTfw3rSv2qyY</code>) y al <strong><a href="https://docs.google.com/forms/d/e/1FAIpQLSdT2P5bgHOP5_7V5YZ9N4EkoGS4Ajeknee18lzgSaTGegtd4g/viewform" target="_blank" style="color:var(--accent-terracotta);">Google Form de Willmi</a></strong>. Solo asegúrate de compartir el Google Sheet como <em>"Cualquier persona con el enlace: Lector"</em>.
       </p>
       <div class="form-group" style="margin-bottom:14px;">
         <label>URL de Sincronización CSV del Google Sheet</label>
@@ -1336,6 +1336,58 @@
       return rows;
     }
 
+    function parseRowsToItems(rows, startId) {
+      const categoryMap = {
+        gala: "Graduaciones y Gala",
+        ejecutiva: "Ejecutiva & Iglesia",
+        sastreria: "Ejecutiva & Iglesia",
+        bodas: "Cortejos de Boda"
+      };
+      if (!rows || rows.length <= 1) return [];
+      const header0 = (rows[0][0] || "").toLowerCase();
+      const offset = (header0.includes("marca temporal") || header0.includes("timestamp")) ? 1 : 0;
+
+      const items = [];
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        const title = r[offset] || "";
+        const catRaw = r[offset + 1] || "gala";
+        const meta = r[offset + 2] || "";
+        const desc = r[offset + 3] || "";
+        const fotoUrl = r[offset + 4] || "";
+        const activo = r[offset + 5] || "SI";
+
+        if (!title.trim() || activo.trim().toUpperCase() === "NO") continue;
+        let category = catRaw.trim().toLowerCase();
+        if (category === "caballeros") continue;
+        if (category === "sastreria") category = "ejecutiva";
+        if (!categoryMap[category]) category = "gala";
+
+        items.push({
+          id: startId + i,
+          title: title.trim(),
+          category,
+          categoryLabel: categoryMap[category],
+          meta: meta.trim() || "Confección a Medida • Bajo Cita",
+          desc: desc.trim() || "Diseño exclusivo confeccionado a medida en nuestro Atelier.",
+          image: normalizeImageUrl(fotoUrl) || createDressSVG("#8C4A32", "#B89158", title.toUpperCase().slice(0, 22), category)
+        });
+      }
+      return items;
+    }
+
+    async function fetchSheetTabCSV(url) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return [];
+        const text = await res.text();
+        if (text.trim().startsWith("<!DOCTYPE") || text.trim().startsWith("<html")) return [];
+        return parseCSV(text);
+      } catch (_) {
+        return [];
+      }
+    }
+
     async function loadGoogleSheetCatalog() {
       const csvUrl = localStorage.getItem("atelier_sheet_csv_url") || DEFAULT_GOOGLE_SHEET_CSV_URL;
       document.getElementById("sheetCsvUrlInput").value = csvUrl;
@@ -1344,49 +1396,33 @@
         return;
       }
       try {
-        const res = await fetch(csvUrl);
-        if (!res.ok) throw new Error("Sheet not public yet");
-        const text = await res.text();
-        const rows = parseCSV(text);
-        if (rows.length > 1) {
-          const categoryMap = {
-            gala: "Graduaciones y Gala",
-            ejecutiva: "Ejecutiva & Iglesia",
-            sastreria: "Ejecutiva & Iglesia",
-            bodas: "Cortejos de Boda"
-          };
-          const header0 = (rows[0][0] || "").toLowerCase();
-          const offset = (header0.includes("marca temporal") || header0.includes("timestamp")) ? 1 : 0;
-
-          const loaded = [];
-          for (let i = 1; i < rows.length; i++) {
-            const r = rows[i];
-            const title = r[offset] || "";
-            const catRaw = r[offset + 1] || "gala";
-            const meta = r[offset + 2] || "";
-            const desc = r[offset + 3] || "";
-            const fotoUrl = r[offset + 4] || "";
-            const activo = r[offset + 5] || "SI";
-
-            if (!title.trim() || activo.trim().toUpperCase() === "NO") continue;
-            let category = catRaw.trim().toLowerCase();
-            if (category === "caballeros") continue; // Strictly filter out any legacy men's category
-            if (category === "sastreria") category = "ejecutiva";
-            if (!categoryMap[category]) category = "gala";
-
-            loaded.push({
-              id: i,
-              title: title.trim(),
-              category,
-              categoryLabel: categoryMap[category],
-              meta: meta.trim() || "Confección a Medida • Bajo Cita",
-              desc: desc.trim() || "Diseño exclusivo confeccionado a medida en nuestro Atelier.",
-              image: normalizeImageUrl(fotoUrl) || createDressSVG("#8C4A32", "#B89158", title.toUpperCase().slice(0, 22), category)
-            });
+        const sheetIdMatch = csvUrl.match(/\/d\/([a-zA-Z0-9_-]{20,})/);
+        let combined = [];
+        if (sheetIdMatch && sheetIdMatch[1]) {
+          const sid = sheetIdMatch[1];
+          const baseGviz = `https://docs.google.com/spreadsheets/d/${sid}/gviz/tq?tqx=out:csv`;
+          // Fetch Form Responses tab (Spanish or English) + default tab in parallel
+          const [formRowsEs, baseRows] = await Promise.all([
+            fetchSheetTabCSV(`${baseGviz}&sheet=${encodeURIComponent("Respuestas de formulario 1")}`),
+            fetchSheetTabCSV(baseGviz)
+          ]);
+          const formItems = parseRowsToItems(formRowsEs, 1000).reverse();
+          const baseItems = parseRowsToItems(baseRows, 1);
+          // Deduplicate if both tabs returned the same default sheet
+          const seen = new Set();
+          for (const item of [...formItems, ...baseItems]) {
+            const key = `${item.title}|${item.meta}`;
+            if (!seen.has(key)) {
+              seen.add(key);
+              combined.push(item);
+            }
           }
-          if (loaded.length > 0) {
-            portfolioItems = loaded;
-          }
+        } else {
+          const rows = await fetchSheetTabCSV(csvUrl);
+          combined = parseRowsToItems(rows, 1);
+        }
+        if (combined.length > 0) {
+          portfolioItems = combined;
         }
       } catch (e) {
         console.info("Mostrando catálogo base integrado:", e.message);
