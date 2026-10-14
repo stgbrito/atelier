@@ -27,12 +27,19 @@
       padding: 0;
     }
 
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
     body {
       font-family: 'Georgia', 'Times New Roman', serif;
       background-color: var(--bg-ivory);
       color: var(--text-espresso);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      position: relative;
     }
 
     .sans {
@@ -563,6 +570,11 @@
       gap: 15px;
     }
 
+    .booking-box > *, .booking-form, .careers-grid > *, .careers-card, .form-group {
+      min-width: 0;
+      max-width: 100%;
+    }
+
     .form-group {
       display: flex;
       flex-direction: column;
@@ -576,11 +588,29 @@
     }
 
     .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
       padding: 10px 12px;
       border: 1px solid var(--border-soft);
       border-radius: 8px;
       font-size: 0.9rem;
       background: var(--bg-ivory);
+      text-overflow: ellipsis;
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .form-actions-2col {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 10px;
+      min-width: 0;
     }
 
     .domicilio-alert {
@@ -639,14 +669,17 @@
     .careers-list li {
       font-size: 0.9rem;
       color: #D9D0C7;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
+      display: block;
+      position: relative;
+      padding-left: 20px;
     }
 
     .careers-list li::before {
       content: "✦";
       color: var(--accent-gold);
+      position: absolute;
+      left: 0;
+      top: 0;
     }
 
     .careers-card {
@@ -764,7 +797,52 @@
         grid-template-columns: 1fr;
       }
       .hero {
-        padding-top: 32px;
+        padding-top: 28px;
+        gap: 28px;
+      }
+      section {
+        padding: 40px 4%;
+      }
+      .booking-box {
+        padding: 22px 16px;
+        gap: 24px;
+      }
+      .booking-form {
+        padding: 18px 14px;
+      }
+      .careers-section {
+        padding: 28px 16px;
+        margin: 20px 4%;
+      }
+      .careers-grid {
+        gap: 24px;
+      }
+      .careers-card {
+        padding: 18px 14px;
+      }
+      .form-row-2col, .form-actions-2col {
+        grid-template-columns: 1fr;
+      }
+      .floating-actions {
+        right: 12px;
+        bottom: 12px;
+        max-width: calc(100vw - 24px);
+        gap: 8px;
+      }
+      .floating-wa {
+        padding: 10px 14px;
+        font-size: 0.78rem;
+        max-width: 100%;
+        white-space: nowrap;
+      }
+      .floating-call {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        max-width: 100%;
+        white-space: nowrap;
+      }
+      body {
+        padding-bottom: 96px;
       }
     }
   </style>
@@ -997,7 +1075,7 @@
           <strong>Importante sobre el Servicio a Domicilio:</strong> Disponible exclusivamente en <strong>Santo Domingo, Bonao y Santiago</strong>. La visita de consulta y toma de medidas tiene un costo adicional que se paga por adelantado para confirmar la cita.
         </div>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-row-2col">
           <div class="form-group">
             <label>Tu Ciudad *</label>
             <select id="clientCity" required>
@@ -1023,6 +1101,7 @@
             <option value="Traje o Vestido para Líder de Iglesia / Ministerio">Traje o Vestido para Líder de Iglesia / Ministerio</option>
             <option value="Vestido de Gala / Fiesta a Medida">Vestido de Gala / Fiesta a Medida</option>
             <option value="Cortejo de Boda / Madrinas / Damas (Matching)">Cortejo de Boda / Madrinas / Damas (Matching)</option>
+            <option value="Otros (Diseño Femenino Personalizado)">Otros</option>
           </select>
         </div>
 
@@ -1031,7 +1110,7 @@
           <textarea id="clientNotes" rows="3" placeholder="Cuéntanos cantidad de piezas, colores, profesión o tipo de ceremonia..."></textarea>
         </div>
 
-        <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:10px;">
+        <div class="form-actions-2col">
           <button type="submit" class="btn btn-whatsapp" style="width:100%; padding:13px;">
             💬 Enviar por WhatsApp
           </button>
