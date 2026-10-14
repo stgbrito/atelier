@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juana de Jesús • Atelier | Alta Costura y Diseño a Medida</title>
+  <style>
+    :root {
+      --bg-ivory: #FAF7F2;
+      --bg-sand: #F1EBE1;
+      --bg-card: #FFFFFF;
+      --text-espresso: #1E1916;
+      --text-muted: #5C524B;
+      --accent-terracotta: #8C4A32;
+      --accent-gold: #B89158;
+      --accent-sage: #2E4A3E;
+      --border-soft: #E2D9CC;
+      --whatsapp-green: #1F7A4C;
+      --shadow-soft: 0 10px 30px rgba(30, 25, 22, 0.06);
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background-color: var(--bg-ivory);
+      color: var(--text-espresso);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sans {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Top Announcement Bar */
+    .top-bar {
+      background: var(--text-espresso);
+      color: #F4EFEA;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .top-bar a {
+      color: #E5C384;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    /* Header / Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--text-espresso);
+    }
+
+    .brand-logo .title {
+      font-size: 1.45rem;
+      font-weight: normal;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo .subtitle {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-terracotta);
+      margin-top: 2px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a.nav-link {
+      text-decoration: none;
+      color: var(--text-espresso);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a.nav-link:hover {
+      color: var(--accent-terracotta);
+    }
+
+    .header-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--text-espresso);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-terracotta);
+      transform: translateY(-1px);
+    }
+
+    .btn-whatsapp {
+      background: var(--whatsapp-green);
+      color: #FFFFFF;
+    }
+
+    .btn-whatsapp:hover {
+      background: #175E3A;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-espresso);
+      border: 1px solid var(--text-espresso);
+    }
+
+    .btn-outline:hover {
+      background: var(--text-espresso);
+      color: #FFFFFF;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      padding: 60px 5%;
+      max-width: 1320px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--bg-sand);
+      color: var(--accent-terracotta);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+      font-weight: normal;
+      line-height: 1.18;
+      margin-bottom: 20px;
+      color: var(--text-espresso);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent-terracotta);
+    }
+
+    .hero p {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      margin-bottom: 26px;
+      max-width: 590px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      border-top: 1px solid var(--border-soft);
+      padding-top: 22px;
+    }
+
+    .highlight-item strong {
+      display: block;
+      font-size: 1.05rem;
+      color: var(--text-espresso);
+    }
+
+    .highlight-item span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .hero-visual {
+      background: var(--bg-sand);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      border: 1px solid var(--border-soft);
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      display: block;
+    }
+
+    .exclusivity-note {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Section Defaults */
+    section {
+      padding: 60px 5%;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 38px auto;
+    }
+
+    .section-header .eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-terracotta);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: normal;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    /* Home Consultation & Studio Policy Banner */
+    .service-modes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 44px;
+    }
+
+    .mode-card {
+      background: var(--bg-sand);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 26px;
+    }
+
+    .mode-card.vip {
+      background: #231D1A;
+      color: #FAF7F2;
+      border-color: #3E342F;
+    }
+
+    .mode-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(140, 74, 50, 0.14);
+      color: var(--accent-terracotta);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .mode-card.vip .mode-badge {
+      background: rgba(184, 145, 88, 0.22);
+      color: #E5C384;
+    }
+
+    .mode-card h3 {
+      font-size: 1.25rem;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+
+    .mode-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .mode-card.vip p {
+      color: #D7CEC6;
+    }
+
+    /* Filter Tabs */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .filter-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.84rem;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--text-espresso);
+      color: #FFFFFF;
+      border-color: var(--text-espresso);
+    }
+
+    /* Portfolio Grid - Locked Layout so Photos Never Break Design */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 28px;
+    }
+
+    .portfolio-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      width: 100%;
+      background: #EDE5D8;
+      overflow: hidden;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(30, 25, 22, 0.84);
+      color: #FFFFFF;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-body h3 {
+      font-size: 1.2rem;
+      font-weight: normal;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-body p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--accent-terracotta);
+      margin-bottom: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-soft);
+    }
+
+    /* Process Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    .step-num {
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-terracotta);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .step-card h3 {
+      font-size: 1.14rem;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Consultation Form Section */
+    .booking-box {
+      background: var(--bg-sand);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .booking-form {
+      background: var(--bg-card);
+      padding: 28px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      display: grid;
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-espresso);
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 10px 12px;
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: var(--bg-ivory);
+    }
+
+    .domicilio-alert {
+      display: none;
+      background: #FFF8EB;
+      border: 1px solid #D9B36C;
+      color: #5C4012;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    /* Careers / Recruitment Section */
+    .careers-section {
+      background: #1E1916;
+      color: #FAF7F2;
+      border-radius: var(--radius-lg);
+      padding: 48px 5%;
+      margin: 36px auto;
+      max-width: 1220px;
+    }
+
+    .careers-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .careers-badge {
+      display: inline-block;
+      background: rgba(184, 145, 88, 0.22);
+      color: #E5C384;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .careers-section h2 {
+      font-size: clamp(1.8rem, 3vw, 2.35rem);
+      font-weight: normal;
+      margin-bottom: 14px;
+    }
+
+    .careers-list {
+      list-style: none;
+      margin: 20px 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .careers-list li {
+      font-size: 0.9rem;
+      color: #D9D0C7;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .careers-list li::before {
+      content: "✦";
+      color: var(--accent-gold);
+    }
+
+    .careers-card {
+      background: #2B2420;
+      border: 1px solid #3E352F;
+      padding: 28px;
+      border-radius: var(--radius-md);
+    }
+
+    .careers-card label {
+      color: #E6DDD3;
+    }
+
+    .careers-card input, .careers-card select, .careers-card textarea {
+      background: #1E1916;
+      color: #FAF7F2;
+      border-color: #4A3F39;
+    }
+
+    /* Engineer / Google Sheet Sync Modal (Hidden in Footer for Alonso) */
+    .cms-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(22, 18, 16, 0.72);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .cms-modal.open {
+      display: flex;
+    }
+
+    .cms-modal-box {
+      background: #FFFFFF;
+      max-width: 640px;
+      width: 100%;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 2px solid var(--accent-gold);
+    }
+
+    /* Footer */
+    footer {
+      background: #161210;
+      color: #C7BDB4;
+      padding: 48px 5% 32px;
+      font-size: 0.86rem;
+    }
+
+    .footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 28px;
+      border-bottom: 1px solid #2E2723;
+      padding-bottom: 28px;
+      margin-bottom: 20px;
+    }
+
+    .footer-inner a {
+      color: #E5C384;
+      text-decoration: none;
+    }
+
+    /* Floating Action Buttons */
+    .floating-actions {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .floating-wa {
+      background: var(--whatsapp-green);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(31, 122, 76, 0.35);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.86rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .floating-call {
+      background: var(--text-espresso);
+      color: #FAF7F2;
+      padding: 10px 16px;
+      border-radius: 999px;
+      box-shadow: 0 6px 18px rgba(30, 25, 22, 0.25);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #3E352F;
+    }
+
+    @media (max-width: 860px) {
+      .hero, .booking-box, .careers-grid, .service-modes-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar sans">
+    Juana de Jesús • Atelier | Estudio en Villa Altagracia &amp; Consultas a Domicilio en Santo Domingo, Bonao y Santiago •
+    <a href="tel:+18097944253">📞 (809) 794-4253</a>
+  </div>
+
+  <header>
+    <a href="#" class="brand-logo">
+      <span class="title">Juana de Jesús • Atelier</span>
+      <span class="subtitle sans">Alta Costura &amp; Diseño a Medida</span>
+    </a>
+    <nav class="sans">
+      <a href="#coleccion" class="nav-link">Portafolio</a>
+      <a href="#modalidades" class="nav-link">Atención y Domicilio</a>
+      <a href="#citas" class="nav-link">Agendar Cita</a>
+      <a href="#carrera" class="nav-link">Trabaja en el Atelier</a>
+      <div class="header-cta-group">
+        <a href="tel:+18097944253" class="btn btn-outline">📞 (809) 794-4253</a>
+        <a href="https://wa.me/18097944253?text=Hola%20Juana%20de%20Jes%C3%BAs%20%E2%80%A2%20Atelier%2C%20deseo%20informaci%C3%B3n%20sobre%20confecci%C3%B3n%20a%20medida." target="_blank" class="btn btn-whatsapp">💬 WhatsApp</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <span class="hero-badge sans">Diseño Exclusivo por Encargo</span>
+      <h1>El arte del entalle perfecto, creado <em>exclusivamente</em> para ti.</h1>
+      <p class="sans">
+        Con más de tres décadas de maestría sartorial, en <strong>Juana de Jesús • Atelier</strong> transformamos textiles nobles en vestidos de gala, cortejos nupciales armonizados (matching) y sastrería femenina de autor. Atención privada en nuestro estudio de Villa Altagracia y servicio a domicilio exclusivo para Santo Domingo, Bonao y Santiago.
+      </p>
+      <div class="hero-actions sans">
+        <a href="#citas" class="btn btn-primary">Agendar Consulta por WhatsApp</a>
+        <a href="tel:+18097944253" class="btn btn-outline">Llamar al Atelier: (809) 794-4253</a>
+      </div>
+      <div class="hero-highlights sans">
+        <div class="highlight-item">
+          <strong>100% a Medida</strong>
+          <span>Patronaje individual para tu silueta</span>
+        </div>
+        <div class="highlight-item">
+          <strong>Cortejos &amp; Gala</strong>
+          <span>Bodas, madrinas y trajes coordinados</span>
+        </div>
+        <div class="highlight-item">
+          <strong>Estudio &amp; Domicilio VIP</strong>
+          <span>Villa Altagracia • Sto. Dgo. • Bonao • Santiago</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg viewBox="0 0 500 580" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#EAE0D2"/>
+            <stop offset="100%" stop-color="#D8C7B2"/>
+          </linearGradient>
+          <linearGradient id="dressGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8C4A32"/>
+            <stop offset="100%" stop-color="#5A2B1B"/>
+          </linearGradient>
+        </defs>
+        <rect width="500" height="580" rx="14" fill="url(#bgGrad)"/>
+        <circle cx="250" cy="210" r="150" fill="#F6F1EA" opacity="0.7"/>
+        <path d="M250 85 L250 115 M235 115 L265 115" stroke="#4A3B32" stroke-width="4" stroke-linecap="round"/>
+        <path d="M222 120 C235 130, 265 130, 278 120 L292 185 C270 200, 230 200, 208 185 Z" fill="url(#dressGrad)"/>
+        <path d="M208 185 C175 280, 145 390, 125 495 L375 495 C355 390, 325 280, 292 185 Z" fill="url(#dressGrad)"/>
+        <path d="M225 190 Q200 340 165 495" stroke="#B89158" stroke-width="1.5" fill="none" opacity="0.65"/>
+        <path d="M250 195 Q250 340 245 495" stroke="#B89158" stroke-width="1.5" fill="none" opacity="0.65"/>
+        <path d="M275 190 Q300 340 335 495" stroke="#B89158" stroke-width="1.5" fill="none" opacity="0.65"/>
+        <rect x="40" y="515" width="420" height="38" rx="8" fill="#1E1916" opacity="0.88"/>
+        <text x="250" y="539" text-anchor="middle" fill="#F6F1EA" font-family="Georgia, serif" font-size="12" letter-spacing="2">JUANA DE JESÚS • ATELIER DE ALTA COSTURA</text>
+      </svg>
+      <p class="exclusivity-note">
+        Nota: Nuestro atelier se dedica exclusivamente a la confección de piezas nuevas a medida. No realizamos reparaciones menores ni alteraciones rápidas.
+      </p>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION (LOCKED TAMPER-PROOF CARDS) -->
+  <section id="coleccion">
+    <div class="section-header">
+      <span class="eyebrow sans">Portafolio de Confección</span>
+      <h2>Obras y Líneas de Nuestro Atelier</h2>
+      <p class="sans">Selecciona cualquier diseño para consultar disponibilidad de agenda y cotización por WhatsApp o llamada al <strong>(809) 794-4253</strong>.</p>
+    </div>
+
+    <div class="filter-bar sans">
+      <button class="filter-btn active" onclick="filterPortfolio('todos', this)">Todas las Colecciones</button>
+      <button class="filter-btn" onclick="filterPortfolio('gala', this)">Vestidos de Gala y Noche</button>
+      <button class="filter-btn" onclick="filterPortfolio('bodas', this)">Cortejos de Boda (Matching)</button>
+      <button class="filter-btn" onclick="filterPortfolio('sastreria', this)">Sastrería y Conjuntos Mujer</button>
+      <button class="filter-btn" onclick="filterPortfolio('caballeros', this)">Camisería Selecta</button>
+    </div>
+
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+  </section>
+
+  <!-- MODALIDADES DE ATENCIÓN: ESTUDIO VS DOMICILIO -->
+  <section id="modalidades">
+    <div class="section-header">
+      <span class="eyebrow sans">Modalidades de Atención</span>
+      <h2>Atención en Estudio o Consulta a Domicilio</h2>
+      <p class="sans">Para garantizar un acabado impecable en cada traje, trabajamos exclusivamente por cita previa bajo dos modalidades.</p>
+    </div>
+
+    <div class="service-modes-grid">
+      <div class="mode-card">
+        <span class="mode-badge sans">Modalidad Estándar • Sin Cargo de Traslado</span>
+        <h3>1. Cita en Nuestro Estudio (Villa Altagracia)</h3>
+        <p class="sans">
+          Te recibimos con cita previa en nuestro Atelier privado en Villa Altagracia (a solo 35 minutos de Santo Domingo por la Autopista Duarte). Incluye asesoría de diseño, toma de medidas y pruebas de entalle programadas.
+        </p>
+        <a href="#citas" class="btn btn-outline sans" onclick="presetServiceMode('Estudio en Villa Altagracia')">Agendar Cita en el Atelier</a>
+      </div>
+
+      <div class="mode-card vip">
+        <span class="mode-badge sans">Servicio VIP • Pago Adicional por Adelantado</span>
+        <h3>2. Consulta y Medidas a Domicilio (Santo Domingo, Bonao y Santiago)</h3>
+        <p class="sans">
+          Nos trasladamos a tu residencia u oficina exclusivamente en <strong>Santo Domingo, Bonao o Santiago</strong> para la sesión de diseño, asesoría textil y toma de medidas (ideal para novias, madrinas y cortejos familiares).
+        </p>
+        <p class="sans" style="font-size:0.82rem; color:#E5C384; margin-bottom:16px;">
+          ✦ Condición: La consulta a domicilio conlleva un cargo adicional que se realiza por adelantado para reservar la fecha y el traslado de la diseñadora.
+        </p>
+        <a href="#citas" class="btn btn-primary sans" style="background:var(--accent-gold); color:#1E1916;" onclick="presetServiceMode('Domicilio VIP (Pago adicional por adelantado)')">Solicitar Cita a Domicilio</a>
+      </div>
+    </div>
+
+    <div class="steps-grid sans">
+      <div class="step-card">
+        <span class="step-num">Paso 01</span>
+        <h3>Contacto Inicial y Filtro de Agenda</h3>
+        <p>Nos escribes por WhatsApp o llamas al <strong>(809) 794-4253</strong> indicando tu fecha de evento y si prefieres cita en Villa Altagracia o consulta a domicilio.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Paso 02</span>
+        <h3>Diseño y Toma de Medidas</h3>
+        <p>Definimos silueta, telas, paleta de color (especialmente en cortejos matching) y tomamos medidas exactas. Con el 50% de inicial iniciamos la confección.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Paso 03</span>
+        <h3>Prueba de Entalle (Fitting)</h3>
+        <p>Realizamos la prueba de ajuste sobre tu cuerpo para asegurar que cada costura realce tu figura con total comodidad.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Paso 04</span>
+        <h3>Entrega de Autor</h3>
+        <p>Recibes tu prenda terminada a mano y lista para tu celebración (con saldo del 50% restante contra entrega).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHATSAPP BOOKING / INQUIRY SECTION -->
+  <section id="citas">
+    <div class="booking-box">
+      <div>
+        <span class="hero-badge sans">Atención Personalizada</span>
+        <h2 style="font-size:2rem; font-weight:normal; margin-bottom:14px;">Solicita Información o Agenda tu Cita</h2>
+        <p class="sans" style="color:var(--text-muted); margin-bottom:20px;">
+          Completa estos datos y se abrirá una conversación directa en nuestro WhatsApp <strong>(809) 794-4253</strong> con tu solicitud estructurada. Si prefieres atención telefónica directa, puedes llamarnos al mismo número.
+        </p>
+        <div class="sans" style="background:var(--bg-card); padding:20px; border-radius:var(--radius-md); border:1px solid var(--border-soft); font-size:0.88rem; display:grid; gap:10px;">
+          <p><strong>📞 Teléfono y WhatsApp Oficial:</strong> <a href="tel:+18097944253" style="color:var(--accent-terracotta); font-weight:600; text-decoration:none;">(809) 794-4253</a></p>
+          <p><strong>📍 Estudio Principal:</strong> Villa Altagracia, Prov. San Cristóbal (Atención con cita previa).</p>
+          <p><strong>🚗 Servicio a Domicilio:</strong> Disponible únicamente para <strong>Santo Domingo, Bonao y Santiago</strong> mediante pago adicional de consulta a domicilio por adelantado.</p>
+          <p><strong>⏳ Tiempo sugerido de reserva:</strong> 3 a 5 semanas para vestidos de gala; 6 a 8 semanas para cortejos de boda.</p>
+        </div>
+      </div>
+
+      <form class="booking-form sans" onsubmit="sendClientWhatsApp(event)">
+        <div class="form-group">
+          <label>Tu Nombre Completo *</label>
+          <input type="text" id="clientName" required placeholder="Ej: María Fernanda Gómez" />
+        </div>
+
+        <div class="form-group">
+          <label>Modalidad de Cita Preferida *</label>
+          <select id="clientMode" required onchange="handleModeChange()">
+            <option value="Cita en el Atelier (Villa Altagracia)">Cita en el Atelier (Villa Altagracia)</option>
+            <option value="Domicilio VIP (Pago adicional por adelantado)">Consulta a Domicilio (Solo Santo Domingo, Bonao o Santiago — Pago por adelantado)</option>
+          </select>
+        </div>
+
+        <div class="domicilio-alert" id="domicilioAlert">
+          <strong>Importante sobre el Servicio a Domicilio:</strong> Disponible exclusivamente en <strong>Santo Domingo, Bonao y Santiago</strong>. La visita de consulta y toma de medidas tiene un costo adicional que se paga por adelantado para confirmar la cita.
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label>Tu Ciudad *</label>
+            <select id="clientCity" required>
+              <option value="Villa Altagracia">Villa Altagracia</option>
+              <option value="Santo Domingo">Santo Domingo</option>
+              <option value="Bonao">Bonao</option>
+              <option value="Santiago">Santiago</option>
+              <option value="San Cristóbal (Visita al Atelier)">San Cristóbal (Visita al Atelier)</option>
+              <option value="Otra ciudad (Visita al Atelier)">Otra ciudad (Visita al Atelier)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fecha Aproximada del Evento</label>
+            <input type="date" id="clientDate" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de Confección de Interés *</label>
+          <select id="clientService" required>
+            <option value="Vestido de Gala / Fiesta a Medida">Vestido de Gala / Fiesta a Medida</option>
+            <option value="Cortejo de Boda / Familiares (Matching)">Cortejo de Boda / Familiares (Matching)</option>
+            <option value="Conjunto / Sastrería Femenina Especial">Conjunto / Sastrería Femenina Especial</option>
+            <option value="Camisa / Chacabana de Caballero a Medida">Camisa / Chacabana de Caballero a Medida</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Detalles de tu Idea (Opcional)</label>
+          <textarea id="clientNotes" rows="3" placeholder="Cuéntanos cantidad de piezas, colores o si tienes referencia visual..."></textarea>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:10px;">
+          <button type="submit" class="btn btn-whatsapp" style="width:100%; padding:13px;">
+            💬 Enviar por WhatsApp
+          </button>
+          <a href="tel:+18097944253" class="btn btn-outline" style="width:100%; padding:13px; text-align:center;">
+            📞 Llamar Ahora
+          </a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- CAREERS / RECRUITMENT SECTION FOR VILLA ALTAGRACIA -->
+  <section id="carrera" style="padding-top:20px;">
+    <div class="careers-section">
+      <div class="careers-grid">
+        <div>
+          <span class="careers-badge sans">Convocatoria Local • Villa Altagracia</span>
+          <h2>Crece con Nosotros: Buscamos 1 a 2 Talentos con Pasión por la Costura</h2>
+          <p class="sans" style="color:#D9D0C7; font-size:0.95rem;">
+            En <strong>Juana de Jesús • Atelier</strong> buscamos integrar a 1 o 2 personas residentes en <strong>Villa Altagracia</strong> que amen el arte de la costura, el orden y los acabados de primera calidad. Trabajarás junto a nuestra diseñadora principal en un estudio tranquilo, respetuoso y enfocado en piezas de alto valor.
+          </p>
+          <ul class="careers-list sans">
+            <li><strong>Lo que valoramos:</strong> Pasión real por la costura, puntualidad, discreción, deseo de perfeccionar técnicas de alta costura y cuidado por los detalles.</li>
+            <li><strong>Conocimientos base:</strong> Manejo de máquina recta y/o overlock, corte básico, hilvanado o planchado fino de prendas (te formamos en los acabados del Atelier).</li>
+            <li><strong>Contacto directo:</strong> Postúlate usando el formulario o llamando/escribiendo al <strong>(809) 794-4253</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="careers-card sans">
+          <h3 style="font-size:1.22rem; margin-bottom:6px; color:#FAF7F2;">Postúlate al Atelier</h3>
+          <p style="font-size:0.83rem; color:#C7BDB4; margin-bottom:16px;">Completa tus datos para enviarnos tu perfil por WhatsApp al (809) 794-4253 y coordinar una entrevista práctica en Villa Altagracia.</p>
+          <form onsubmit="sendCareerWhatsApp(event)" style="display:grid; gap:12px;">
+            <div class="form-group">
+              <label>Nombre y Apellido *</label>
+              <input type="text" id="candName" required placeholder="Tu nombre completo" />
+            </div>
+            <div class="form-group">
+              <label>Sector en Villa Altagracia *</label>
+              <input type="text" id="candSector" required placeholder="Ej: Centro, Los Solares, Barrio Puerto Rico..." />
+            </div>
+            <div class="form-group">
+              <label>Nivel de Experiencia en Costura *</label>
+              <select id="candExp" required>
+                <option value="Intermedio (Manejo máquina recta/overlock y confección básica)">Intermedio (Manejo máquina recta/overlock)</option>
+                <option value="Avanzado (Experiencia en vestidos, entalles y cierres finos)">Avanzado (Experiencia en vestidos y acabados)</option>
+                <option value="Apasionada con base práctica (Aprendiz avanzada)">Apasionada con base práctica (Aprendiz avanzada)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Disponibilidad de Horario *</label>
+              <select id="candAvail" required>
+                <option value="Tiempo completo">Tiempo completo</option>
+                <option value="Medio tiempo (Mañanas o Tardes)">Medio tiempo (Mañanas o Tardes)</option>
+                <option value="Por días / Proyectos especiales">Por días / Proyectos especiales</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>¿Qué tipo de prendas has cosido o qué te motiva?</label>
+              <textarea id="candMotivation" rows="2" placeholder="Cuéntanos brevemente tu experiencia..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="background:var(--accent-gold); color:#1E1916; width:100%; margin-top:4px;">
+              Enviar Postulación al (809) 794-4253 →
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="sans">
+    <div class="footer-inner">
+      <div>
+        <strong style="color:#FAF7F2; font-size:1.05rem; letter-spacing:0.1em; text-transform:uppercase;">Juana de Jesús • Atelier</strong>
+        <p style="margin-top:6px; max-width:390px;">Diseño y confección de moda femenina a medida, trajes de gala y cortejos nupciales en Villa Altagracia, con servicio a domicilio en Santo Domingo, Bonao y Santiago.</p>
+        <p style="margin-top:8px;"><strong>Teléfono &amp; WhatsApp:</strong> <a href="tel:+18097944253">(809) 794-4253</a></p>
+      </div>
+      <div>
+        <strong style="color:#FAF7F2;">Respaldo Corporativo y Facturación</strong>
+        <p style="margin-top:6px;">Operado bajo <strong>Bridge to Solutions</strong></p>
+        <p>Reg. ONAPI No. 856888 • RNC: 133494442</p>
+        <p>Disponibilidad de Comprobantes Fiscales (NCF) para eventos y empresas.</p>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; max-width:1320px; margin:0 auto; color:#8A7E75; font-size:0.78rem;">
+      <span>&copy; 2026 Juana de Jesús • Atelier &amp; Bridge to Solutions. Todos los derechos reservados.</span>
+      <button onclick="openCmsModal()" style="background:none; border:none; color:#6E635B; cursor:pointer; font-size:0.75rem; text-decoration:underline;">
+        ⚙️ Sincronización Google Drive/Sheets (Solo Ingeniero)
+      </button>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP & CALL BUTTONS -->
+  <div class="floating-actions sans">
+    <a href="tel:+18097944253" class="floating-call">
+      📞 Llamar: (809) 794-4253
+    </a>
+    <a href="https://wa.me/18097944253?text=Hola%20Juana%20de%20Jes%C3%BAs%20%E2%80%A2%20Atelier%2C%20deseo%20informaci%C3%B3n%20sobre%20una%20confecci%C3%B3n%20a%20medida." target="_blank" class="floating-wa">
+      💬 WhatsApp (809) 794-4253
+    </a>
+  </div>
+
+  <!-- ENGINEER MODAL: GOOGLE SHEETS / DRIVE AUTO-SYNC SETUP -->
+  <div class="cms-modal sans" id="cmsModal">
+    <div class="cms-modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:1.15rem;">Configuración de Catálogo Automático (Manos Libres)</h3>
+        <button onclick="closeCmsModal()" style="background:none; border:none; font-size:1.3rem; cursor:pointer;">✕</button>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+        Con este sistema, <strong>Willmi nunca toca la página web ni puede alterar el diseño</strong>. Ella solo llena un <strong>Google Form</strong> desde su celular (o agrega una fila en un Google Sheet compartido) pegando el enlace de la foto en Google Drive, y la web se actualiza sola con recorte automático 4:5.
+      </p>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>URL del Google Sheet Publicado como CSV (Archivo → Compartir → Publicar en la web → CSV)</label>
+        <input type="url" id="sheetCsvUrlInput" placeholder="https://docs.google.com/spreadsheets/d/e/.../pub?output=csv" />
+      </div>
+      <div style="background:var(--bg-ivory); padding:12px; border-radius:8px; border:1px solid var(--border-soft); font-size:0.8rem; margin-bottom:16px;">
+        <strong>Columnas exactas del Google Sheet (Fila 1):</strong><br/>
+        <code>Titulo | Categoria | Meta | Descripcion | Foto_URL | Activo</code><br/>
+        <span style="color:var(--text-muted);">Categorías válidas: <code>gala</code>, <code>bodas</code>, <code>sastreria</code>, <code>caballeros</code>. En <code>Foto_URL</code> puede pegar cualquier link compartido de Google Drive.</span>
+      </div>
+      <div style="display:flex; gap:10px; justify-content:flex-end;">
+        <button class="btn btn-outline" onclick="closeCmsModal()">Cerrar</button>
+        <button class="btn btn-primary" onclick="saveSheetCsvUrl()">Guardar y Sincronizar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const OFFICIAL_PHONE = "18097944253";
+    const BRAND_NAME = "Juana de Jesús • Atelier";
+
+    // Optional: Hardcode the published Google Sheet CSV URL here in GitHub once created
+    const DEFAULT_GOOGLE_SHEET_CSV_URL = "";
+
+    function createDressSVG(primaryColor, accentColor, labelText, silhouetteType) {
+      let dressPath = "";
+      if (silhouetteType === "gala") {
+        dressPath = `<path d="M165 95 C185 108, 215 108, 235 95 L248 165 C225 178, 175 178, 152 165 Z" fill="${primaryColor}"/>
+                     <path d="M152 165 C120 260, 95 360, 75 450 L325 450 C305 360, 280 260, 248 165 Z" fill="${primaryColor}"/>`;
+      } else if (silhouetteType === "bodas") {
+        dressPath = `<path d="M140 110 L185 110 L195 170 L130 170 Z" fill="${primaryColor}"/>
+                     <path d="M130 170 L105 445 L215 445 L195 170 Z" fill="${primaryColor}"/>
+                     <path d="M215 105 L265 105 L275 170 L205 170 Z" fill="${accentColor}"/>
+                     <path d="M205 170 L190 445 L295 445 L275 170 Z" fill="${accentColor}"/>`;
+      } else if (silhouetteType === "sastreria") {
+        dressPath = `<path d="M150 95 L250 95 L268 235 L132 235 Z" fill="${primaryColor}"/>
+                     <path d="M180 95 L200 175 L220 95" stroke="${accentColor}" stroke-width="4" fill="none"/>
+                     <path d="M142 235 L135 445 L192 445 L198 285 L204 445 L265 445 L258 235 Z" fill="#2A2421"/>`;
+      } else {
+        dressPath = `<path d="M135 100 L265 100 L285 210 L255 220 L245 155 L245 430 L155 430 L155 155 L145 220 L115 210 Z" fill="${primaryColor}" stroke="${accentColor}" stroke-width="2"/>
+                     <line x1="200" y1="100" x2="200" y2="430" stroke="${accentColor}" stroke-width="3"/>`;
+      }
+
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+        <rect width="400" height="500" fill="#EFE8DD"/>
+        <circle cx="200" cy="220" r="135" fill="#FAF6F0"/>
+        ${dressPath}
+        <rect x="28" y="455" width="344" height="28" rx="6" fill="#1E1916" opacity="0.82"/>
+        <text x="200" y="473" text-anchor="middle" fill="#FAF7F2" font-family="Georgia, serif" font-size="11" letter-spacing="1.5">${labelText}</text>
+      </svg>`;
+      return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+    }
+
+    const DEFAULT_ITEMS = [
+      {
+        id: 1,
+        title: "Vestido de Gala 'Terracota Imperial'",
+        category: "gala",
+        categoryLabel: "Vestidos de Gala",
+        meta: "Crepé de Seda & Drapeado Manual • Confección en 3 a 4 semanas",
+        desc: "Diseño de caída fluida con entalle de corsetería interna invisible, escote estructurado y falda de gala hecha a las medidas exactas de la clienta.",
+        image: createDressSVG("#8C4A32", "#B89158", "GALA & ALTA COSTURA", "gala")
+      },
+      {
+        id: 2,
+        title: "Armonía Nupcial (Cortejos & Familiares)",
+        category: "bodas",
+        categoryLabel: "Cortejos de Boda",
+        meta: "Paleta Coordinada a Medida • Reserva con 6 a 8 semanas",
+        desc: "Especialidad en trajes coordinados (matching) para madres de los novios, madrinas y cortejo nupcial, adaptando el diseño al cuerpo de cada participante.",
+        image: createDressSVG("#7A5C61", "#C5A880", "CORTEJO NUPCIAL COORDINADO", "bodas")
+      },
+      {
+        id: 3,
+        title: "Conjunto Sastre 'Editorial Marfil'",
+        category: "sastreria",
+        categoryLabel: "Sastrería Mujer",
+        meta: "Lino Estructurado / Crepé Sastre • Confección en 2 a 3 semanas",
+        desc: "Chaqueta de corte arquitectónico y pantalón de pinzas de caída impecable para eventos civiles, graduaciones, conferencias y ocasiones ejecutivas.",
+        image: createDressSVG("#C9B79C", "#8C4A32", "SASTRERÍA FEMENINA", "sastreria")
+      },
+      {
+        id: 4,
+        title: "Vestido Midi 'Esmeralda Real'",
+        category: "gala",
+        categoryLabel: "Vestidos de Gala",
+        meta: "Mikado & Acabado Artesanal • Confección en 3 semanas",
+        desc: "Silueta midi de alta distinción para bodas de tarde y recepciones formales, con costuras francesas y ajuste milimétrico en cintura y hombros.",
+        image: createDressSVG("#2E4A3E", "#D4AF37", "RECEPCIÓN & CÓCTEL", "gala")
+      },
+      {
+        id: 5,
+        title: "Colección Familia de Honor (Matching Bodas RD)",
+        category: "bodas",
+        categoryLabel: "Cortejos de Boda",
+        meta: "Atención Grupal por Cita • Dama, Madrina y Caballero",
+        desc: "Propuesta integral donde armonizamos los vestidos de las damas y la camisa o chacabana del caballero acompañante con la misma línea estética.",
+        image: createDressSVG("#4A5D6E", "#B89158", "BODAS & EVENTOS RD", "bodas")
+      },
+      {
+        id: 6,
+        title: "Chacabana & Camisa de Autor para Caballero",
+        category: "caballeros",
+        categoryLabel: "Camisería Selecta",
+        meta: "Lino Irlandés / Algodón Pima • Confección selecta por encargo",
+        desc: "Confección selecta de camisería y chacabanas a medida para el novio, padrinos o acompañantes que buscan un entalle superior al estándar comercial.",
+        image: createDressSVG("#F2ECE1", "#8C4A32", "CAMISERÍA DE AUTOR", "caballeros")
+      }
+    ];
+
+    let portfolioItems = [ ...DEFAULT_ITEMS ];
+    let currentFilter = "todos";
+
+    // Automatically converts any Google Drive share URL into a direct embeddable image URL
+    function normalizeImageUrl(rawUrl) {
+      if (!rawUrl) return "";
+      const trimmed = rawUrl.trim();
+      const driveMatch = trimmed.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{20,})/);
+      if (driveMatch && driveMatch[1]) {
+        return `https://lh3.googleusercontent.com/d/${driveMatch[1]}=w1000`;
+      }
+      return trimmed;
+    }
+
+    // Simple CSV parser for Google Sheets published CSV
+    function parseCSV(csvText) {
+      const rows = [];
+      let currentRow = [];
+      let currentVal = "";
+      let inQuotes = false;
+      for (let i = 0; i < csvText.length; i++) {
+        const ch = csvText[i];
+        const next = csvText[i + 1];
+        if (inQuotes) {
+          if (ch === '"' && next === '"') {
+            currentVal += '"';
+            i++;
+          } else if (ch === '"') {
+            inQuotes = false;
+          } else {
+            currentVal += ch;
+          }
+        } else {
+          if (ch === '"') {
+            inQuotes = true;
+          } else if (ch === ',') {
+            currentRow.push(currentVal);
+            currentVal = "";
+          } else if (ch === '
+' || (ch === '' && next === '
+')) {
+            if (ch === '') i++;
+            currentRow.push(currentVal);
+            rows.push(currentRow);
+            currentRow = [];
+            currentVal = "";
+          } else {
+            currentVal += ch;
+          }
+        }
+      }
+      if (currentVal || currentRow.length > 0) {
+        currentRow.push(currentVal);
+        rows.push(currentRow);
+      }
+      return rows;
+    }
+
+    async function loadGoogleSheetCatalog() {
+      const csvUrl = localStorage.getItem("atelier_sheet_csv_url") || DEFAULT_GOOGLE_SHEET_CSV_URL;
+      document.getElementById("sheetCsvUrlInput").value = csvUrl;
+      if (!csvUrl) {
+        renderPortfolio();
+        return;
+      }
+      try {
+        const res = await fetch(csvUrl);
+        const text = await res.text();
+        const rows = parseCSV(text);
+        if (rows.length > 1) {
+          const categoryMap = {
+            gala: "Vestidos de Gala",
+            bodas: "Cortejos de Boda",
+            sastreria: "Sastrería Mujer",
+            caballeros: "Camisería Selecta"
+          };
+          const loaded = [];
+          for (let i = 1; i < rows.length; i++) {
+            const [title, catRaw, meta, desc, fotoUrl, activo] = rows[i];
+            if (!title || (activo && activo.trim().toUpperCase() === "NO")) continue;
+            const category = (catRaw || "gala").trim().toLowerCase();
+            loaded.push({
+              id: i,
+              title: title.trim(),
+              category: categoryMap[category] ? category : "gala",
+              categoryLabel: categoryMap[category] || "Alta Costura",
+              meta: (meta || "Confección a Medida • Bajo Cita").trim(),
+              desc: (desc || "Diseño exclusivo confeccionado a medida en nuestro Atelier.").trim(),
+              image: normalizeImageUrl(fotoUrl) || createDressSVG("#8C4A32", "#B89158", title.toUpperCase().slice(0, 20), category)
+            });
+          }
+          if (loaded.length > 0) {
+            portfolioItems = loaded;
+          }
+        }
+      } catch (e) {
+        console.warn("Usando catálogo base local:", e);
+      }
+      renderPortfolio();
+    }
+
+    function filterPortfolio(category, btnEl) {
+      currentFilter = category;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      renderPortfolio();
+    }
+
+    function renderPortfolio() {
+      const grid = document.getElementById("portfolioGrid");
+      grid.innerHTML = "";
+      const filtered = currentFilter === "todos"
+        ? portfolioItems
+        : portfolioItems.filter(item => item.category === currentFilter);
+
+      filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "portfolio-card";
+        card.innerHTML = `
+          <div class="card-media">
+            <span class="card-tag sans">${item.categoryLabel}</span>
+            <img src="${item.image}" alt="${item.title}" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3>${item.title}</h3>
+            <p class="sans">${item.desc}</p>
+            <div class="card-meta sans">${item.meta}</div>
+            <button class="btn btn-whatsapp sans" style="width:100%;" onclick="inquireItemWhatsApp('${item.title.replace(/'/g, "\'")}', '${item.categoryLabel}')">
+              Consultar este diseño por WhatsApp
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function presetServiceMode(modeValue) {
+      const select = document.getElementById("clientMode");
+      for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value.includes(modeValue.split(" ")[0])) {
+          select.selectedIndex = i;
+          break;
+        }
+      }
+      handleModeChange();
+    }
+
+    function handleModeChange() {
+      const mode = document.getElementById("clientMode").value;
+      const alertBox = document.getElementById("domicilioAlert");
+      const citySelect = document.getElementById("clientCity");
+      const isDomicilio = mode.includes("Domicilio");
+
+      alertBox.style.display = isDomicilio ? "block" : "none";
+
+      if (isDomicilio) {
+        citySelect.innerHTML = `
+          <option value="Santo Domingo">Santo Domingo (Domicilio con pago adelantado)</option>
+          <option value="Bonao">Bonao (Domicilio con pago adelantado)</option>
+          <option value="Santiago">Santiago (Domicilio con pago adelantado)</option>
+        `;
+      } else {
+        citySelect.innerHTML = `
+          <option value="Villa Altagracia">Villa Altagracia</option>
+          <option value="Santo Domingo">Santo Domingo (Visita al Atelier)</option>
+          <option value="Bonao">Bonao (Visita al Atelier)</option>
+          <option value="Santiago">Santiago (Visita al Atelier)</option>
+          <option value="San Cristóbal">San Cristóbal (Visita al Atelier)</option>
+          <option value="Otra ciudad">Otra ciudad (Visita al Atelier)</option>
+        `;
+      }
+    }
+
+    function inquireItemWhatsApp(title, categoryLabel) {
+      const msg = `Hola *${BRAND_NAME}*, vi en su portafolio web el diseño *"${title}"* (${categoryLabel}) y me gustaría recibir información sobre citas y confección a medida.`;
+      window.open(`https://wa.me/${OFFICIAL_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function sendClientWhatsApp(e) {
+      e.preventDefault();
+      const name = document.getElementById("clientName").value.trim();
+      const mode = document.getElementById("clientMode").value;
+      const city = document.getElementById("clientCity").value;
+      const date = document.getElementById("clientDate").value || "Por definir";
+      const service = document.getElementById("clientService").value;
+      const notes = document.getElementById("clientNotes").value.trim() || "Sin notas adicionales";
+
+      const msg = `Hola *${BRAND_NAME}*, deseo agendar una consulta de confección a medida:
+
+` +
+                  `• *Nombre:* ${name}
+` +
+                  `• *Modalidad:* ${mode}
+` +
+                  `• *Ciudad:* ${city}
+` +
+                  `• *Tipo de prenda:* ${service}
+` +
+                  `• *Fecha del evento:* ${date}
+` +
+                  `• *Detalles:* ${notes}`;
+      window.open(`https://wa.me/${OFFICIAL_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function sendCareerWhatsApp(e) {
+      e.preventDefault();
+      const name = document.getElementById("candName").value.trim();
+      const sector = document.getElementById("candSector").value.trim();
+      const exp = document.getElementById("candExp").value;
+      const avail = document.getElementById("candAvail").value;
+      const motivation = document.getElementById("candMotivation").value.trim() || "Me apasiona la costura y deseo integrarme al Atelier.";
+
+      const msg = `Hola *${BRAND_NAME}*, deseo postularme a la vacante de *Costura / Asistente de Atelier* en Villa Altagracia:
+
+` +
+                  `• *Nombre:* ${name}
+` +
+                  `• *Sector en Villa Altagracia:* ${sector}
+` +
+                  `• *Experiencia:* ${exp}
+` +
+                  `• *Disponibilidad:* ${avail}
+` +
+                  `• *Motivación:* ${motivation}`;
+      window.open(`https://wa.me/${OFFICIAL_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function openCmsModal() {
+      document.getElementById("cmsModal").classList.add("open");
+    }
+
+    function closeCmsModal() {
+      document.getElementById("cmsModal").classList.remove("open");
+    }
+
+    function saveSheetCsvUrl() {
+      const url = document.getElementById("sheetCsvUrlInput").value.trim();
+      localStorage.setItem("atelier_sheet_csv_url", url);
+      closeCmsModal();
+      loadGoogleSheetCatalog();
+    }
+
+    loadGoogleSheetCatalog();
+  </script>
+</body>
+</html>
