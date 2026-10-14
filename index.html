@@ -28,15 +28,13 @@
     }
 
     html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-      overflow-x: hidden;
+      overflow-x: clip;
       width: 100%;
       max-width: 100%;
     }
 
     body {
-      overflow-x: hidden;
+      overflow-x: clip;
       width: 100%;
       max-width: 100%;
     }
@@ -72,20 +70,30 @@
       margin-left: 8px;
     }
 
-    /* Header / Nav */
+    /* Header / Nav - 100% Fixed on Desktop & Mobile */
     header {
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 100;
-      background: rgba(250, 247, 242, 0.95);
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 2500;
+      background: rgba(250, 247, 242, 0.96);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-soft);
-      padding: 16px 5%;
+      padding: 14px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 14px;
+      box-shadow: 0 4px 20px rgba(30, 25, 22, 0.06);
+      transition: padding 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .top-bar {
+      margin-top: 76px;
     }
 
     .brand-logo {
@@ -813,15 +821,18 @@
 
     nav a.nav-link {
       position: relative;
-      padding-bottom: 4px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: color 0.25s ease, background 0.25s ease;
     }
 
     nav a.nav-link::after {
       content: "";
       position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0%;
+      left: 10px;
+      right: 10px;
+      bottom: 2px;
+      width: 0;
       height: 2px;
       background: var(--accent-terracotta);
       transition: width 0.28s ease;
@@ -829,12 +840,13 @@
 
     nav a.nav-link:hover::after,
     nav a.nav-link.active-section::after {
-      width: 100%;
+      width: calc(100% - 20px);
     }
 
     nav a.nav-link.active-section {
       color: var(--accent-terracotta);
-      font-weight: 600;
+      background: rgba(140, 74, 50, 0.09);
+      font-weight: 700;
     }
 
     /* Mobile Menu Toggle Button */
@@ -1028,8 +1040,33 @@
         max-width: 100%;
         white-space: nowrap;
       }
+      header {
+        padding: 10px 4%;
+        gap: 8px;
+      }
+      .brand-logo {
+        max-width: calc(100% - 100px);
+      }
+      .brand-logo .title {
+        font-size: 1.08rem;
+        letter-spacing: 0.08em;
+      }
+      .brand-logo .subtitle {
+        font-size: 0.58rem;
+        letter-spacing: 0.1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .top-bar {
+        margin-top: 60px;
+        font-size: 0.68rem;
+        padding: 7px 10px;
+      }
       .mobile-menu-btn {
         display: inline-flex;
+        padding: 7px 11px;
+        font-size: 0.8rem;
       }
       header nav {
         display: none;
@@ -1762,11 +1799,11 @@
       // Render default items immediately so the page is never blank while fetching
       renderPortfolio();
 
-      const storedUrl = localStorage.getItem("atelier_sheet_csv_url") || "";
+      const storedUrl = safeGetStorage("atelier_sheet_csv_url");
       if (storedUrl.includes("1dMvYA01tGunce5hBK-c5fobbwDtT3TJQSLzvWcdNjlU") || storedUrl.includes("1yTjzopK8joLfTi9U314pOIMB6HZlYBLBsYv2ltLjww4")) {
-        localStorage.removeItem("atelier_sheet_csv_url");
+        safeRemoveStorage("atelier_sheet_csv_url");
       }
-      const csvUrl = localStorage.getItem("atelier_sheet_csv_url") || DEFAULT_GOOGLE_SHEET_CSV_URL;
+      const csvUrl = safeGetStorage("atelier_sheet_csv_url") || DEFAULT_GOOGLE_SHEET_CSV_URL;
       document.getElementById("sheetCsvUrlInput").value = csvUrl;
       if (!csvUrl) return;
 
@@ -1811,7 +1848,7 @@
     function filterAndScroll(category) {
       const btn = document.querySelector(`.filter-btn[data-cat="${category}"]`);
       filterPortfolio(category, btn);
-      document.getElementById("coleccion").scrollIntoView({ behavior: "smooth" });
+      smoothScrollToElement(document.getElementById("coleccion"));
     }
 
     function filterPortfolio(category, btnEl) {
@@ -1950,19 +1987,72 @@
       document.getElementById("cmsModal").classList.remove("open");
     }
 
+    function safeGetStorage(key) {
+      try {
+        return window.localStorage ? (localStorage.getItem(key) || "") : "";
+      } catch (_) {
+        return "";
+      }
+    }
+
+    function safeSetStorage(key, val) {
+      try {
+        if (window.localStorage) localStorage.setItem(key, val);
+      } catch (_) {}
+    }
+
+    function safeRemoveStorage(key) {
+      try {
+        if (window.localStorage) localStorage.removeItem(key);
+      } catch (_) {}
+    }
+
     function saveSheetCsvUrl() {
       const url = document.getElementById("sheetCsvUrlInput").value.trim();
-      localStorage.setItem("atelier_sheet_csv_url", url);
+      safeSetStorage("atelier_sheet_csv_url", url);
       closeCmsModal();
-      function toggleMobileMenu() {
+      loadGoogleSheetCatalog();
+    }
+
+    function smoothScrollToElement(targetEl, duration = 650) {
+      if (!targetEl) return;
+      const headerEl = document.querySelector("header");
+      const headerOffset = (headerEl ? headerEl.offsetHeight : 76) + 14;
+      const startY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      const targetY = Math.max(0, targetEl.getBoundingClientRect().top + startY - headerOffset);
+      const diff = targetY - startY;
+      if (Math.abs(diff) < 4) return;
+
+      let startTime = null;
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(progress);
+        window.scrollTo(0, startY + diff * eased);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      }
+      window.requestAnimationFrame(step);
+    }
+
+    function toggleMobileMenu() {
       const nav = document.getElementById("mainNav");
       const btn = document.getElementById("mobileMenuBtn");
+      if (!nav) return;
       nav.classList.toggle("nav-open");
-      btn.textContent = nav.classList.contains("nav-open") ? "✕ Cerrar" : "☰ Menú";
+      if (btn) {
+        btn.textContent = nav.classList.contains("nav-open") ? "✕ Cerrar" : "☰ Menú";
+      }
     }
 
     function openLightbox(itemId) {
-      const item = portfolioItems.find(i => i.id === itemId);
+      const item = portfolioItems.find(i => Number(i.id) === Number(itemId));
       if (!item) return;
       document.getElementById("lightboxImg").src = item.image;
       document.getElementById("lightboxImg").alt = item.title;
@@ -1999,77 +2089,75 @@
     }
 
     function initInteractiveUX() {
-      // 1. Smooth Scroll with Sticky Header Offset for all anchor links
+      // 1. Custom JS Smooth Scroll with Fixed Header Offset for all anchor links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function(e) {
           const targetId = this.getAttribute("href");
+          const nav = document.getElementById("mainNav");
+          const btn = document.getElementById("mobileMenuBtn");
+          if (nav && nav.classList.contains("nav-open")) {
+            nav.classList.remove("nav-open");
+            if (btn) btn.textContent = "☰ Menú";
+          }
           if (!targetId || targetId === "#") {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            smoothScrollToElement(document.body, 550);
             return;
           }
           const targetEl = document.querySelector(targetId);
           if (targetEl) {
             e.preventDefault();
-            // Close mobile menu if open
-            const nav = document.getElementById("mainNav");
-            const btn = document.getElementById("mobileMenuBtn");
-            if (nav && nav.classList.contains("nav-open")) {
-              nav.classList.remove("nav-open");
-              if (btn) btn.textContent = "☰ Menú";
-            }
-            const headerOffset = document.querySelector("header").offsetHeight + 12;
-            const elementPosition = targetEl.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth"
-            });
+            smoothScrollToElement(targetEl, 650);
           }
         });
       });
 
-      // 2. Header Scroll Elevation & Active Section Scroll-Spy
+      // 2. Fixed Header Elevation & Viewport-Aware Active Section Scroll-Spy
       const headerEl = document.querySelector("header");
-      const sections = document.querySelectorAll("section[id]");
-      const navLinks = document.querySelectorAll("nav a.nav-link");
+      const sections = Array.from(document.querySelectorAll("section[id]"));
+      const navLinks = Array.from(document.querySelectorAll("nav a.nav-link"));
 
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 30) {
+      const onScrollUpdate = () => {
+        const sy = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (sy > 20) {
           headerEl.classList.add("scrolled");
         } else {
           headerEl.classList.remove("scrolled");
         }
 
         let currentSectionId = "";
-        const scrollPos = window.scrollY + 160;
-        sections.forEach(sec => {
-          if (scrollPos >= sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {
-            currentSectionId = sec.getAttribute("id");
+        const triggerLine = window.innerHeight * 0.38;
+        for (const sec of sections) {
+          const rect = sec.getBoundingClientRect();
+          if (rect.top <= triggerLine && rect.bottom >= 120) {
+            currentSectionId = sec.id;
           }
-        });
+        }
 
         navLinks.forEach(link => {
           link.classList.toggle("active-section", link.getAttribute("href") === `#${currentSectionId}`);
         });
-      }, { passive: true });
+      };
+
+      window.addEventListener("scroll", onScrollUpdate, { passive: true });
+      window.addEventListener("resize", onScrollUpdate, { passive: true });
+      setTimeout(onScrollUpdate, 100);
 
       // 3. Scroll-Reveal Observer for Sections and Cards
       const revealTargets = document.querySelectorAll(".pillar-card, .mode-card, .step-card, .booking-box, .careers-section, .section-header");
       revealTargets.forEach((el, idx) => {
         el.classList.add("reveal-on-scroll");
-        el.style.transitionDelay = `${(idx % 3) * 80}ms`;
+        el.style.transitionDelay = `${(idx % 3) * 90}ms`;
       });
 
       if ("IntersectionObserver" in window) {
-        const revealObserver = new IntersectionObserver((entries, obs) => {
+        const revealObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add("is-visible");
-              obs.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.12, rootMargin: "0px 0px -30px 0px" });
+        }, { threshold: 0.08 });
 
         revealTargets.forEach(el => revealObserver.observe(el));
       } else {
@@ -2086,9 +2174,6 @@
     }
 
     initInteractiveUX();
-    loadGoogleSheetCatalog();
-    }
-
     loadGoogleSheetCatalog();
   </script>
 </body>
